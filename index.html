@@ -3,79 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Device Location Tracker</title>
+    <title>Relative Position Tracker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📍 Device Location Tracker</h1>
-            <p>Get your current longitude and latitude coordinates</p>
+            <h1>📐 Relative Position Tracker</h1>
+            <p>Track your position relative to a starting point with meter precision</p>
         </header>
 
         <main>
             <div class="location-card">
-                <div class="location-info">
-                    <div class="coordinate-group">
-                        <label>Latitude:</label>
-                        <span id="latitude" class="coordinate-value">--</span>
+                <!-- Starting Point Section -->
+                <div class="starting-point-section">
+                    <h3>🎯 Starting Point</h3>
+                    <div class="starting-point-info">
+                        <div class="coordinate-group">
+                            <label>Start Latitude:</label>
+                            <span id="startLat" class="coordinate-value">--</span>
+                        </div>
+                        <div class="coordinate-group">
+                            <label>Start Longitude:</label>
+                            <span id="startLon" class="coordinate-value">--</span>
+                        </div>
                     </div>
-                    <div class="coordinate-group">
-                        <label>Longitude:</label>
-                        <span id="longitude" class="coordinate-value">--</span>
-                    </div>
-                    <div class="coordinate-group">
-                        <label>Accuracy:</label>
-                        <span id="accuracy" class="coordinate-value">--</span>
-                    </div>
-                    <div class="coordinate-group">
-                        <label>Last Updated:</label>
-                        <span id="timestamp" class="coordinate-value">--</span>
+                    <div class="starting-controls">
+                        <button id="setStart" class="btn btn-primary">🎯 Set Starting Point</button>
+                        <button id="resetStart" class="btn btn-outline" disabled>🔄 Reset Start</button>
                     </div>
                 </div>
 
+                <!-- Relative Position Section -->
+                <div class="relative-position-section">
+                    <h3>📍 Relative Position</h3>
+                    <div class="location-info">
+                        <div class="coordinate-group">
+                            <label>X Position (East/West):</label>
+                            <span id="xPosition" class="coordinate-value coordinate-x">0.00 m</span>
+                        </div>
+                        <div class="coordinate-group">
+                            <label>Y Position (North/South):</label>
+                            <span id="yPosition" class="coordinate-value coordinate-y">0.00 m</span>
+                        </div>
+                        <div class="coordinate-group">
+                            <label>Distance from Start:</label>
+                            <span id="distance" class="coordinate-value coordinate-distance">0.00 m</span>
+                        </div>
+                        <div class="coordinate-group">
+                            <label>Bearing (Direction):</label>
+                            <span id="bearing" class="coordinate-value coordinate-bearing">0.0°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Position Tracking Controls -->
                 <div class="controls">
-                    <button id="getLocation" class="btn btn-primary">Get My Location</button>
-                    <button id="watchLocation" class="btn btn-secondary">Watch Location</button>
-                    <button id="stopWatch" class="btn btn-danger" disabled>Stop Watching</button>
+                    <button id="getLocation" class="btn btn-secondary" disabled>📍 Get Relative Position</button>
+                    <button id="watchLocation" class="btn btn-success" disabled>👁️ Watch Position</button>
+                    <button id="stopWatch" class="btn btn-danger" disabled>⏹️ Stop Watching</button>
                 </div>
 
+                <!-- Status Message -->
                 <div id="status" class="status-message"></div>
                 
+                <!-- Additional Details -->
                 <div class="additional-info">
                     <details>
-                        <summary>More Location Details</summary>
+                        <summary>📊 Additional Details</summary>
                         <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>GPS Accuracy:</label>
+                                <span id="accuracy">--</span>
+                            </div>
                             <div class="detail-item">
                                 <label>Altitude:</label>
                                 <span id="altitude">--</span>
                             </div>
                             <div class="detail-item">
-                                <label>Altitude Accuracy:</label>
-                                <span id="altitudeAccuracy">--</span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Heading:</label>
-                                <span id="heading">--</span>
-                            </div>
-                            <div class="detail-item">
                                 <label>Speed:</label>
                                 <span id="speed">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Last Updated:</label>
+                                <span id="timestamp">--</span>
                             </div>
                         </div>
                     </details>
                 </div>
 
+                <!-- Action Buttons -->
                 <div class="copy-section">
-                    <button id="copyCoords" class="btn btn-outline">📋 Copy Coordinates</button>
-                    <button id="openMaps" class="btn btn-outline">🗺️ Open in Maps</button>
+                    <button id="copyCoords" class="btn btn-outline" disabled>📋 Copy Relative Position</button>
+                    <button id="openMaps" class="btn btn-outline" disabled>🗺️ Open Current Location</button>
+                </div>
+
+                <!-- Visual Compass -->
+                <div class="compass-section">
+                    <details>
+                        <summary>🧭 Position Visualization</summary>
+                        <div class="compass-container">
+                            <div class="compass">
+                                <div class="compass-rose">
+                                    <div class="compass-direction n">N</div>
+                                    <div class="compass-direction e">E</div>
+                                    <div class="compass-direction s">S</div>
+                                    <div class="compass-direction w">W</div>
+                                </div>
+                                <div id="position-dot" class="position-dot"></div>
+                                <div class="compass-center"></div>
+                            </div>
+                            <div class="compass-info">
+                                <p><strong>📍 Your Position:</strong></p>
+                                <p id="compass-text">Set starting point to begin tracking</p>
+                            </div>
+                        </div>
+                    </details>
                 </div>
             </div>
         </main>
 
         <footer>
-            <p>⚠️ This website requires location permissions to function properly.</p>
-            <p>Your location data is only displayed locally and not stored or transmitted.</p>
+            <p>⚠️ This website requires location permissions and works best with high-accuracy GPS.</p>
+            <p>🔒 Your location data is only displayed locally and not stored or transmitted.</p>
+            <p>📐 Positions are calculated relative to your chosen starting point with meter-level precision.</p>
         </footer>
     </div>
 

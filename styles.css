@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     background: white;
     border-radius: 20px;
@@ -54,6 +54,46 @@ main {
     margin-bottom: 20px;
 }
 
+/* Starting Point Section */
+.starting-point-section {
+    background: #e8f4fd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 2px solid #4facfe;
+}
+
+.starting-point-section h3 {
+    margin-bottom: 15px;
+    color: #2c5282;
+    font-size: 1.3em;
+}
+
+.starting-point-info {
+    margin-bottom: 15px;
+}
+
+.starting-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Relative Position Section */
+.relative-position-section {
+    background: #f0fff4;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 2px solid #48bb78;
+}
+
+.relative-position-section h3 {
+    margin-bottom: 15px;
+    color: #2f855a;
+    font-size: 1.3em;
+}
+
 /* Location info */
 .location-info {
     margin-bottom: 25px;
@@ -89,6 +129,27 @@ main {
     text-align: center;
 }
 
+/* Special styling for different coordinate types */
+.coordinate-x {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.coordinate-y {
+    background: #d4edda;
+    color: #155724;
+}
+
+.coordinate-distance {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.coordinate-bearing {
+    background: #f8d7da;
+    color: #721c24;
+}
+
 /* Controls */
 .controls {
     display: flex;
@@ -109,7 +170,7 @@ main {
     min-width: 120px;
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -131,6 +192,11 @@ main {
     color: white;
 }
 
+.btn-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
 .btn-danger {
     background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
     color: white;
@@ -144,7 +210,7 @@ main {
     margin: 5px;
 }
 
-.btn-outline:hover {
+.btn-outline:hover:not(:disabled) {
     background: #667eea;
     color: white;
 }
@@ -229,6 +295,113 @@ main {
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Compass Visualization */
+.compass-section {
+    margin-top: 20px;
+}
+
+.compass-section details {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+.compass-section summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.compass-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.compass {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border: 3px solid #667eea;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f8f9fa 0%, #e9ecef 100%);
+    flex-shrink: 0;
+}
+
+.compass-rose {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.compass-direction {
+    position: absolute;
+    font-weight: bold;
+    font-size: 14px;
+    color: #495057;
+}
+
+.compass-direction.n {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.compass-direction.e {
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.compass-direction.s {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.compass-direction.w {
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.compass-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: #667eea;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.position-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #ff4757;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.compass-info {
+    flex: 1;
+}
+
+.compass-info p {
+    margin-bottom: 8px;
 }
 
 /* Footer */
@@ -298,6 +471,19 @@ footer p {
     .detail-grid {
         grid-template-columns: 1fr;
     }
+    
+    .compass-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .compass {
+        align-self: center;
+    }
+    
+    .starting-controls {
+        flex-direction: column;
+    }
 }
 
 /* Animation for loading */
@@ -309,4 +495,15 @@ footer p {
 
 .loading .coordinate-value {
     animation: pulse 1.5s infinite;
+}
+
+/* Animation for position dot movement */
+@keyframes position-update {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.3); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.position-dot.updating {
+    animation: position-update 0.6s ease-out;
 }
