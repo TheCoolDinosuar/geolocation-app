@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Location Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📍 Device Location Tracker</h1>
+            <p>Get your current longitude and latitude coordinates</p>
+        </header>
+
+        <main>
+            <div class="location-card">
+                <div class="location-info">
+                    <div class="coordinate-group">
+                        <label>Latitude:</label>
+                        <span id="latitude" class="coordinate-value">--</span>
+                    </div>
+                    <div class="coordinate-group">
+                        <label>Longitude:</label>
+                        <span id="longitude" class="coordinate-value">--</span>
+                    </div>
+                    <div class="coordinate-group">
+                        <label>Accuracy:</label>
+                        <span id="accuracy" class="coordinate-value">--</span>
+                    </div>
+                    <div class="coordinate-group">
+                        <label>Last Updated:</label>
+                        <span id="timestamp" class="coordinate-value">--</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="getLocation" class="btn btn-primary">Get My Location</button>
+                    <button id="watchLocation" class="btn btn-secondary">Watch Location</button>
+                    <button id="stopWatch" class="btn btn-danger" disabled>Stop Watching</button>
+                </div>
+
+                <div id="status" class="status-message"></div>
+                
+                <div class="additional-info">
+                    <details>
+                        <summary>More Location Details</summary>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>Altitude:</label>
+                                <span id="altitude">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Altitude Accuracy:</label>
+                                <span id="altitudeAccuracy">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Heading:</label>
+                                <span id="heading">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Speed:</label>
+                                <span id="speed">--</span>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="copy-section">
+                    <button id="copyCoords" class="btn btn-outline">📋 Copy Coordinates</button>
+                    <button id="openMaps" class="btn btn-outline">🗺️ Open in Maps</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>⚠️ This website requires location permissions to function properly.</p>
+            <p>Your location data is only displayed locally and not stored or transmitted.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
